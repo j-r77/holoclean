@@ -257,8 +257,10 @@ class Dataset:
         init_records = self.raw_data.df.sort_values(['_tid_']).to_records(index=False)
         t = self.aux_table[AuxTables.inf_values_dom]
         repaired_vals = dictify(t.df.reset_index())
+	print('REPAIRS:')
         for tid in repaired_vals:
             for attr in repaired_vals[tid]:
+		print(tid,attr,init_records[tid][attr],repaired_vals[tid][attr])
                 init_records[tid][attr] = repaired_vals[tid][attr]
         repaired_df = pd.DataFrame.from_records(init_records)
         name = self.raw_data.name+'_repaired'
